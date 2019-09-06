@@ -2,10 +2,9 @@ $(function () {
 
 });
 function login() {
-    var username = $("#username").val();
-    var password = $("#password").val();
-    var usertype = $("#usertype").val();
-    if(username==""||password==""){
+    var sjhm = $("#sjhm").val();
+    var pwd = $("#pwd").val();
+    if(sjhm==""||pwd==""){
         //toastr.success('提交数据成功');
         //toastr.error('Error');
         //toastr.warning('只能选择一行进行编辑');
@@ -15,7 +14,7 @@ function login() {
     }
     $.ajax({
         url: "/loginIn.do",
-        data: {"username": username,"password":password,"usertype":usertype},
+        data: {"sjhm": sjhm,"pwd":pwd},
         type: "post",
         timeout: 3000,
         dataType: "json",
@@ -24,7 +23,7 @@ function login() {
             toastr.error('链接超时！');
         },
         success: function (responseText, textStatus, XMLHttpRequest) {
-            if(responseText.repData.data.usertypt=="-1"){
+            if(responseText.code=="-1"){
                 toastr.info('用户名或密码不正确！');
                 return;
             }

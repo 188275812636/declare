@@ -1,6 +1,7 @@
 package com.css.declare.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "s_user", schema = "", catalog = "")
-public class S_User {
+public class S_User implements Serializable {
 
     private String id;
     private String sjhm;

@@ -1,12 +1,14 @@
 package com.css.declare.service.login;
 
+import com.css.declare.entity.S_User;
+import com.css.declare.entity.S_UserRepository;
+import com.css.declare.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * \* User: rgy
@@ -18,24 +20,23 @@ public class LoginService {
     @Autowired
     private JdbcTemplate secondJdbcTemplate;
 
-    public String queryUser(HttpServletRequest request) {
-        String usertype = request.getParameter("usertype");
-        List<Map<String, Object>> user = this.secondJdbcTemplate.queryForList(
-                "SELECT * FROM portal_user T WHERE T.USERNAME=? and t.PASSWORD=? and T.USERTYPE=?",
-                request.getParameter("username"),request.getParameter("password"),usertype);
-        if(user.size()>0){
+    @Autowired
+    private S_UserRepository s_userRepository;
+
+    public JsonResponse queryUser(HttpServletRequest request) {
+        JsonResponse jsonResponse = new JsonResponse();
+        String sjhm = request.getParameter("sjhm");
+        String pwd = request.getParameter("pwd");
+        S_User user = s_userRepository.findBySjhmAndAndPwd(sjhm,pwd);
+        if(user!=null){
             //管理员
-            if("0".equals(usertype)){
-                request.getSession().setAttribute("admin",request.getParameter("username"));//用户名存入该用户的session 中
-
-            }
-            if("1".equals(usertype)){
-                request.getSession().setAttribute("user",request.getParameter("username"));//用户名存入该用户的session 中
-            }
-            return usertype;
+            jsonResponse.setMsg("校验成功！");
+            jsonResponse.setCode("0");
+            request.getSession().setAttribute("user",user);//用户名存入该用户的session 中
         }else{
-            return "-1";
+            jsonResponse.setMsg("用户名或密码错误");
+            jsonResponse.setCode("-1");
         }
-
+        return jsonResponse;
     }
 }

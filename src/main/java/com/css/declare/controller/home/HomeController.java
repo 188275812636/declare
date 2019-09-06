@@ -30,18 +30,12 @@ public class HomeController {
     @RequestMapping(value = {"/home.do"})
     public ModelAndView goHome(HttpServletRequest request) {
         Object user = request.getSession().getAttribute("user");
-        Object admin = request.getSession().getAttribute("admin");
-
         if(user!=null){
             ModelAndView modelAndView = new ModelAndView("home/home");
-            modelAndView = setGn(modelAndView,request,"1");
+            modelAndView = setGn(modelAndView,request);
             return modelAndView;
         }
-        if(admin!=null){
-            ModelAndView modelAndView = new ModelAndView("admin/home");
-            modelAndView = setGn(modelAndView,request,"0");
-            return modelAndView;
-        }
+
         return new ModelAndView("redirect:/login.do");
     }
 
@@ -57,7 +51,7 @@ public class HomeController {
         return jsonResponse;
     }
 
-    public ModelAndView setGn(ModelAndView modelAndView,HttpServletRequest request,String usertype){
+    public ModelAndView setGn(ModelAndView modelAndView,HttpServletRequest request){
         JsonResponse jsonResponse = homeService.queryGnmk(request);
         modelAndView.getModelMap().addAttribute("gnmk", jsonResponse.getRepData().get("gnmk"));
         jsonResponse = homeService.queryGncdByMkid(request);
@@ -65,7 +59,6 @@ public class HomeController {
         jsonResponse = homeService.querySpBygnid(request);
         modelAndView.getModelMap().addAttribute("sp", jsonResponse.getRepData().get("sp"));
 
-        modelAndView.getModelMap().addAttribute("usertype", usertype);
         return modelAndView;
     }
 }

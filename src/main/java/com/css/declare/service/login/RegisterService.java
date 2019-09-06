@@ -1,7 +1,7 @@
 package com.css.declare.service.login;
 
 import com.css.declare.entity.S_User;
-import com.css.declare.entity.UserRepository;
+import com.css.declare.entity.S_UserRepository;
 import com.css.declare.util.JsonResponse;
 import com.css.declare.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class RegisterService {
     @Autowired
     private JdbcTemplate secondJdbcTemplate;
     @Autowired
-    private UserRepository userRepository;
+    private S_UserRepository userRepository;
 
     /**
      *@描述 新增用户
@@ -33,7 +33,7 @@ public class RegisterService {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String truename = request.getParameter("truename");
-        S_User userEntity = userRepository.findByUsername(username);
+        S_User userEntity = new S_User();
         if(userEntity==null){
             userEntity = new S_User();
         }else{

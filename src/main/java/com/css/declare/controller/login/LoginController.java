@@ -31,13 +31,9 @@ public class LoginController {
     @RequestMapping(value = {"/", "/login.do"})
     public ModelAndView login(HttpServletRequest request) {
         Object user = request.getSession().getAttribute("user");
-        Object admin = request.getSession().getAttribute("admin");
 
         if(user!=null){
 
-            return new ModelAndView("redirect:/home.do");
-        }
-        if(admin!=null){
             return new ModelAndView("redirect:/home.do");
         }
         return new ModelAndView("login/login");
@@ -51,11 +47,7 @@ public class LoginController {
     @ResponseBody
     @RequestMapping(value = {"/loginIn.do"})
     public JsonResponse loginIn(HttpServletRequest request){
-        JsonResponse jsonResponse = new JsonResponse();
-        Map<String, Object> map = new HashMap<>();
-        String flag = loginService.queryUser(request);
-        map.put("flag",flag);
-        jsonResponse.getRepData().put("data",map);
+       JsonResponse jsonResponse = loginService.queryUser(request);
         return jsonResponse;
     }
 
@@ -67,7 +59,6 @@ public class LoginController {
     @RequestMapping(value = {"/logOut.do"})
     public ModelAndView logOut(HttpServletRequest request){
         request.getSession().removeAttribute("user");
-        request.getSession().removeAttribute("admin");
         return new ModelAndView("redirect:/home.do");
     }
 

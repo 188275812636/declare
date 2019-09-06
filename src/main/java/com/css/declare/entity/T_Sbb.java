@@ -2,6 +2,7 @@ package com.css.declare.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,8 +11,8 @@ import java.util.Date;
  * \
  */
 @Entity
-@Table(name = "portal_user", schema = "", catalog = "")
-public class T_Sbb {
+@Table(name = "t_sbb", schema = "", catalog = "")
+public class T_Sbb implements Serializable {
     private static final long serialVersionUID = -2242664293223677212L;
 
     private String id;
