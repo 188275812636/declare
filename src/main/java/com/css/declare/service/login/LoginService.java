@@ -27,7 +27,7 @@ public class LoginService {
         JsonResponse jsonResponse = new JsonResponse();
         String sjhm = request.getParameter("sjhm");
         String pwd = request.getParameter("pwd");
-        S_User user = s_userRepository.findBySjhmAndAndPwd(sjhm,pwd);
+        S_User user = s_userRepository.findBySjhmAndPwd(sjhm,pwd);
         if(user!=null){
             //管理员
             jsonResponse.setMsg("校验成功！");

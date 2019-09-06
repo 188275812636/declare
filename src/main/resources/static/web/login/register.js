@@ -1,18 +1,20 @@
-function register() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    var password1 = document.getElementById("password1").value;
-    var truename = document.getElementById("truename").value;
-    if(username==""||password==""||password1==""){
+function to_register() {
+    var sjhm = document.getElementById("sjhm").value;
+    var pwd = document.getElementById("pwd").value;
+    var pwd1 = document.getElementById("pwd1").value;
+    var xm = document.getElementById("xm").value;
+    var zjhm = document.getElementById("zjhm").value;
+
+    if(sjhm==""||pwd==""||pwd1==""||xm==""||zjhm==""){
         toastr.warning('请填写基本信息！');
         return;
     }
-    if(password!=password1){
+    if(pwd!=pwd1){
         toastr.warning('两次密码不一致！');
     }
     $.ajax({
         url: "/to_register.do",
-        data: {"username": username,"password":password,"truename":truename},
+        data: {"sjhm": sjhm,"pwd":pwd,"xm":xm,"zjhm":zjhm},
         type: "post",
         timeout: 3000,
         dataType: "json",

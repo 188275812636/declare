@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 
 /**
@@ -30,10 +31,12 @@ public class RegisterService {
      */
     public JsonResponse addUser(HttpServletRequest request) {
         JsonResponse jsonResponse = new JsonResponse();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String truename = request.getParameter("truename");
-        S_User userEntity = new S_User();
+        String sjhm = request.getParameter("sjhm");
+        String pwd = request.getParameter("pwd");
+        String zjhm = request.getParameter("zjhm");
+        String xm = request.getParameter("xm");
+
+        S_User userEntity = userRepository.findBySjhm(sjhm);
         if(userEntity==null){
             userEntity = new S_User();
         }else{
@@ -42,7 +45,14 @@ public class RegisterService {
             return jsonResponse;
         }
         userEntity.setId(UuidUtil.getUUID());
-
+        userEntity.setSjhm(sjhm);
+        userEntity.setPwd(pwd);
+        userEntity.setXm(xm);
+        userEntity.setYhlx("0");
+        userEntity.setZjhm(zjhm);
+        userEntity.setZjlx_dm("201");
+        userEntity.setYxbz("Y");
+        userEntity.setLrsj(new Date());
         userRepository.save(userEntity);
         System.out.println("注册成功！");
         jsonResponse.setMsg("注册成功！");

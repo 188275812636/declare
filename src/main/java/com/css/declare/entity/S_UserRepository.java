@@ -6,5 +6,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface S_UserRepository extends JpaRepository<S_User, String> {
     @Query("SELECT u FROM S_User AS u WHERE u.sjhm = :sjhm AND u.pwd = :pwd AND u.yxbz='Y'")
-    S_User findBySjhmAndAndPwd(@Param("sjhm") String sjhm,@Param("pwd") String pwd);
+    S_User findBySjhmAndPwd(@Param("sjhm") String sjhm,@Param("pwd") String pwd);
+
+    @Query("SELECT u FROM S_User AS u WHERE u.sjhm = :sjhm AND u.yxbz='Y'")
+    S_User findBySjhm(@Param("sjhm") String sjhm);
 }
