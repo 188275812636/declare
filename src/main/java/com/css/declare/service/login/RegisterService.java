@@ -3,6 +3,7 @@ package com.css.declare.service.login;
 import com.css.declare.entity.S_User;
 import com.css.declare.entity.S_UserRepository;
 import com.css.declare.util.JsonResponse;
+import com.css.declare.util.MD5Utils;
 import com.css.declare.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,10 +30,10 @@ public class RegisterService {
      *@user rgy
      *@date 2019/8/27
      */
-    public JsonResponse addUser(HttpServletRequest request) {
+    public JsonResponse addUser(HttpServletRequest request) throws Exception {
         JsonResponse jsonResponse = new JsonResponse();
         String sjhm = request.getParameter("sjhm");
-        String pwd = request.getParameter("pwd");
+        String pwd = MD5Utils.md52(request.getParameter("pwd"));
         String zjhm = request.getParameter("zjhm");
         String xm = request.getParameter("xm");
 

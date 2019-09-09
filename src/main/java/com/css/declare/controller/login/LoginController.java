@@ -46,7 +46,7 @@ public class LoginController {
      */
     @ResponseBody
     @RequestMapping(value = {"/loginIn.do"})
-    public JsonResponse loginIn(HttpServletRequest request){
+    public JsonResponse loginIn(HttpServletRequest request) throws Exception {
        JsonResponse jsonResponse = loginService.queryUser(request);
         return jsonResponse;
     }

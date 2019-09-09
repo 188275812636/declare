@@ -38,7 +38,7 @@ public class RegisterController {
      */
     @ResponseBody
     @RequestMapping(value = {"/to_register.do"})
-    public JsonResponse to_register(HttpServletRequest request) {
+    public JsonResponse to_register(HttpServletRequest request) throws Exception {
 
         JsonResponse jsonResponse = registerService.addUser(request);
         return jsonResponse;

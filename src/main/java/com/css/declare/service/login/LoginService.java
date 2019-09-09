@@ -3,6 +3,7 @@ package com.css.declare.service.login;
 import com.css.declare.entity.S_User;
 import com.css.declare.entity.S_UserRepository;
 import com.css.declare.util.JsonResponse;
+import com.css.declare.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,10 @@ public class LoginService {
     @Autowired
     private S_UserRepository s_userRepository;
 
-    public JsonResponse queryUser(HttpServletRequest request) {
+    public JsonResponse queryUser(HttpServletRequest request) throws Exception {
         JsonResponse jsonResponse = new JsonResponse();
         String sjhm = request.getParameter("sjhm");
-        String pwd = request.getParameter("pwd");
+        String pwd = MD5Utils.md52(request.getParameter("pwd"));
         S_User user = s_userRepository.findBySjhmAndPwd(sjhm,pwd);
         if(user!=null){
             //管理员
