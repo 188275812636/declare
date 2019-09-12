@@ -26,7 +26,9 @@ public class HomeService {
      */
     public JsonResponse queryGnmk(HttpServletRequest request) {
         JsonResponse jsonResponse = new JsonResponse();
-
+        List<Map<String, Object>> gnmk = this.secondJdbcTemplate.queryForList(
+                "SELECT *,SUBSTRING(mk_url,2) as mk_url1 FROM gn_mk T WHERE T.yxbz='Y'");
+        jsonResponse.getRepData().put("gnmk",gnmk);
         return jsonResponse;
     }
 
@@ -37,7 +39,13 @@ public class HomeService {
      */
     public JsonResponse queryGncdByMkid(HttpServletRequest request) {
         JsonResponse jsonResponse = new JsonResponse();
-
+        String mkid =  request.getParameter("mkid");
+        if(mkid==null){
+            mkid="1";
+        }
+        List<Map<String, Object>> gncd = this.secondJdbcTemplate.queryForList(
+                "SELECT * FROM gn_cd T WHERE T.yxbz='Y' and t.mkid=?",mkid);
+        jsonResponse.getRepData().put("gncd",gncd);
         return jsonResponse;
     }
 
