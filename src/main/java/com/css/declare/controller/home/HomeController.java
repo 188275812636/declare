@@ -56,7 +56,6 @@ public class HomeController {
         modelAndView.getModelMap().addAttribute("gnmk", jsonResponse.getRepData().get("gnmk"));
         jsonResponse = homeService.queryAllGncd(request);
         modelAndView.getModelMap().addAttribute("gncd", jsonResponse.getRepData().get("gncd"));
-        jsonResponse = homeService.querySpBygnid(request);
 
         return modelAndView;
     }

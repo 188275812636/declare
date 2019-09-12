@@ -1,5 +1,6 @@
 package com.css.declare.service.home;
 
+import com.css.declare.entity.S_User;
 import com.css.declare.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,9 +40,11 @@ public class HomeService {
      */
     public JsonResponse queryAllGncd(HttpServletRequest request) {
         JsonResponse jsonResponse = new JsonResponse();
-
+        S_User s_user = (S_User) request.getSession().getAttribute("user");
+        String yhlx = s_user.getYhlx();
         List<Map<String, Object>> gncd = this.secondJdbcTemplate.queryForList(
-                "SELECT * FROM gn_cd T WHERE T.yxbz='Y'");
+
+                "SELECT * FROM gn_cd T WHERE T.yxbz='Y' and t.yhlx=?",yhlx);
         jsonResponse.getRepData().put("gncd",gncd);
         return jsonResponse;
     }
