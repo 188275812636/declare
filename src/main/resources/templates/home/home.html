@@ -23,6 +23,7 @@
                                         <div class="accordion-heading">
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-919397" th:href="${gnmklist.mk_url}" th:text="${gnmklist.mkmc}"></a>
                                         </div>
+                                        <input type="hidden" th:value="${gnmklist.id}">
                                         <ul th:each="gncdlist,status:${gncd}" style="list-style: none">
                                             <li th:if="${gncdlist.mkid} == ${gnmklist.id}">
                                                 <div th:id="${gnmklist.mk_url1}" class="accordion-body collapse" >

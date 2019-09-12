@@ -47,17 +47,16 @@ public class HomeController {
     @ResponseBody
     @RequestMapping(value = {"/tognmk.do"})
     public JsonResponse tognmk(HttpServletRequest request) {
-        JsonResponse jsonResponse = homeService.queryGncdByMkid(request);
+        JsonResponse jsonResponse = homeService.queryAllGncd(request);
         return jsonResponse;
     }
 
     public ModelAndView setGn(ModelAndView modelAndView,HttpServletRequest request){
         JsonResponse jsonResponse = homeService.queryGnmk(request);
         modelAndView.getModelMap().addAttribute("gnmk", jsonResponse.getRepData().get("gnmk"));
-        jsonResponse = homeService.queryGncdByMkid(request);
+        jsonResponse = homeService.queryAllGncd(request);
         modelAndView.getModelMap().addAttribute("gncd", jsonResponse.getRepData().get("gncd"));
         jsonResponse = homeService.querySpBygnid(request);
-        modelAndView.getModelMap().addAttribute("sp", jsonResponse.getRepData().get("sp"));
 
         return modelAndView;
     }
